@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { fetchPokemon } from '@/api/pokeapi';
 import PokeCard from '@/app/(components)/PokeCard';
 import Loading from './loading';
 
