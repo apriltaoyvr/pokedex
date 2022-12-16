@@ -1,5 +1,5 @@
 'use client';
-import { Container, Progress } from '@nextui-org/react';
+import { Container, Loading as Loader } from '@nextui-org/react';
 
 export default function Loading() {
   return (
@@ -10,7 +10,7 @@ export default function Loading() {
       justify='center'
       alignContent='center'
     >
-      <Progress shadow indeterminated value={50} color='gradient' />
+      <Loader type='gradient'/>
     </Container>
   );
 }

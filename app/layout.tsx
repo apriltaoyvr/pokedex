@@ -1,11 +1,9 @@
 'use client';
-import { Suspense, useEffect, lazy } from 'react';
 import { Inter } from '@next/font/google';
 const inter = Inter({ subsets: ['latin'] });
-import { Container, Grid, Link } from '@nextui-org/react';
+import { Container, Grid, Link, Spacer } from '@nextui-org/react';
 import Navbar from './(components)/Navbar';
 import Providers from '@/app/providers';
-import Loading from './loading';
 
 export default function RootLayout({
   children,
@@ -18,11 +16,22 @@ export default function RootLayout({
       <Providers>
         <body className={inter.className}>
           <Navbar />
-          <Container fluid justify='center'>
-            <Grid.Container gap={2} justify='center'>
+          <Container
+            fluid
+            display='flex'
+            justify='center'
+            alignContent='center'
+          >
+            <Grid.Container gap={2} justify='center' alignContent='center'>
               {children}
             </Grid.Container>
-            <Link href='https://pokeapi.co/'>Created with PokeAPI</Link>
+            <Spacer y={4} />
+            <Grid xs={12} justify='center'
+            >
+              <Link href='https://pokeapi.co/' isExternal css={{ m: '$10' }}>
+                Created with PokeAPI
+              </Link>
+            </Grid>
           </Container>
         </body>
       </Providers>

@@ -7,17 +7,12 @@ import { useEffect, useState } from 'react';
 
 const ThemeSwitch = () => {
   const { setTheme } = useNextTheme();
-  const [dark, setDark] = useState(true);
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark')) setDark(true);
-    else setDark(false);
-  })
+  const { isDark } = useTheme();
   
   return (
     <>
       <Switch
-        checked={!dark}
+        checked={!isDark}
         onChange={(e) => setTheme(e.target.checked ? 'light' : 'dark')}
         size='xl'
         iconOn={<FontAwesomeIcon icon={faSun} />}

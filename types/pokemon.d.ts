@@ -5,11 +5,25 @@ interface Directory {
   results: [{ name: string; url: string }];
 }
 
-interface Pokemon {
+interface PokemonBasic {
   name: string;
+  description: pSpecies.flavor_text_entries[0];
   id: string;
   image: string;
   types: [{ slot: number; name: string }];
-  description: pSpecies.flavor_text_entries[0];
-  is_default?: boolean;
+  is_default: boolean;
+}
+
+type PokemonDetailed = PokemonBasic & FormsEvolutions;
+
+interface FormsEvolutions {
+  evolves_from: string | null;
+  evolves_to: [
+    evolves_to: {
+      species: string;
+      url: string;
+    }
+  ];
+  evolves_final: string | null;
+  varieties: [{ name: string; url: string }];
 }
