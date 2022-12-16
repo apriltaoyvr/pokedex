@@ -1,15 +1,21 @@
 import Head from 'next/head';
-import { SetStateAction, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { Inter } from '@next/font/google';
 const inter = Inter({ subsets: ['latin'] });
-import { Container, Grid, Textarea, Link, Input } from '@nextui-org/react';
-import PokeCard from '@/components/PokeCard';
+import { Container, Link, Input } from '@nextui-org/react';
 import allPokemon from '@/api/pokemon';
+const PokeList = React.lazy(() => import('@/components/PokeList'));
 
 export default function Home() {
-  const [pokimens, setPokimens] = useState([...allPokemon.pokemon]);
+  let initial: any[] = [];
+  const [pokimens, setPokimens] = useState(initial);
   const [filter, setFilter] = useState('');
-  const [maxItems, setMaxItems] =  useState(50);
+  const [maxItems, setMaxItems] = useState(50);
+
+  useEffect(() => {
+    setPokimens([...allPokemon.pokemon]);
+  }, []);
+
   allPokemon.onChange = () => {
     setPokimens([...allPokemon.pokemon]);
   };
@@ -27,6 +33,7 @@ export default function Home() {
         display='flex'
         justify='center'
         alignContent='center'
+        className={inter.className}
       >
         <Input
           label='Search for a pokemon'
@@ -52,25 +59,7 @@ export default function Home() {
           }}
           onChange={(e) => setMaxItems(Number(e.target.value))}
         />
-
-        <Grid.Container gap={2} justify='center' className={inter.className}>
-          {pokimens
-            .filter((pokemon) => pokemon.name.includes(filter.toLowerCase()))
-            .slice(0, maxItems || Infinity)
-            .map((pokemon) => {
-              return (
-                <Grid key={pokemon.id}>
-                  <PokeCard
-                    name={pokemon.name}
-                    image={pokemon.sprites.front_default}
-                    types={pokemon.types}
-                    id={pokemon.id}
-                    key={pokemon.name}
-                  />
-                </Grid>
-              );
-            })}
-        </Grid.Container>
+          <PokeList pokimens={pokimens} filter={filter} maxItems={maxItems} />
         <Container
           fluid
           justify='center'

@@ -1,5 +1,6 @@
-import { Container, Card, Text } from '@nextui-org/react';
+import { Container, Card, Text, Image } from '@nextui-org/react';
 import allPokemon from '@/api/pokemon';
+import Types from '@/components/Types';
 
 export async function getServerSideProps(context: any) {
   console.log(context.params.name);
@@ -8,17 +9,30 @@ export async function getServerSideProps(context: any) {
 }
 
 export default function PokemonPage({ data }: any) {
+
   return (
     <Container responsive>
       <Card>
-        <Card.Header>
-          <Text h2 transform='capitalize'>
+        <Card.Header css={{ display: 'flex', justifyContent: 'center'}}>
+          <Text h2 transform='capitalize' >
             {data.name}
           </Text>
         </Card.Header>
         <Card.Body>
-          <Text>Default card. (shadow)</Text>
+          <Image
+            src={data.sprites.front_default}
+            alt={data.name}
+            width={96}
+            height={96}
+            showSkeleton
+            maxDelay={10000}
+            draggable={false}
+          />
+          <Text></Text>
         </Card.Body>
+        <Card.Footer>
+          <Types types={data.types}></Types>
+        </Card.Footer>
       </Card>
     </Container>
   );

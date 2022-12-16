@@ -1,8 +1,7 @@
-import Types from '@/components/Types';
-import Link from 'next/link';
-import { Card, Text, Image, Badge, Row } from '@nextui-org/react';
+import React from 'react';
+import { Badge, Row } from '@nextui-org/react';
 
-export default function PokeCard({ name, image, types, id }: PokeCard) {
+export default function Types({ types }: any) {
   function typeColor(type: string) {
     switch (type) {
       case 'grass':
@@ -47,36 +46,21 @@ export default function PokeCard({ name, image, types, id }: PokeCard) {
   }
 
   return (
-    <Link href={`/pokemon/${name}/`}>
-      <Card isHoverable isPressable css={{ minWidth: '250px' }}>
-        <Card.Header css={{ display: 'flex', justifyContent: 'center' }}>
-          <Text h2 transform='capitalize'>
-            {name}
-          </Text>
-        </Card.Header>
-        <Card.Body
+    <Row justify='center' gap={2}>
+      {types.map((type: any) => (
+        <Badge
+          disableOutline
+          size='lg'
           css={{
-            py: '$10',
-            display: 'flex',
-            placeContent: 'center',
-            alignContent: 'center',
+            textTransform: 'capitalize',
+            mx: 2,
+            backgroundColor: `${typeColor(type.type.name)}`,
           }}
+          key={`${type.type.name}`}
         >
-          <Image
-            src={image}
-            alt={name}
-            width={96}
-            height={96}
-            showSkeleton
-            maxDelay={10000}
-            draggable={false}
-          />
-          <Text></Text>
-        </Card.Body>
-        <Card.Footer>
-          <Types types={types} typeColor={typeColor} />
-        </Card.Footer>
-      </Card>
-    </Link>
+          {type.type.name}
+        </Badge>
+      ))}
+    </Row>
   );
 }

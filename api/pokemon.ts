@@ -36,7 +36,7 @@ class Pokedex {
       //@ts-ignore
       this._pokemonByName[element.name] = element;
     });
-    this.onChange();
+    this.onChange(); 
   }
 
   onChange() {
