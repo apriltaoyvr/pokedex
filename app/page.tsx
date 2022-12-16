@@ -3,9 +3,8 @@ import PokeCard from '@/app/(components)/PokeCard';
 
 export default async function Home() {
   let page = 0;
-  let perPage = 1255;
+  let perPage = 25;
   const directory = await fetchPokemon(page, perPage);
-  console.log(directory);
 
   return (
     <>

@@ -22,7 +22,7 @@ const PokeCard = ({ name, image, types, id, description }: Pokemon) => {
           <Text h2 transform='capitalize'>
             {name}
           </Text>
-          <Text h4>#{id}</Text>
+          <Text h5>#{id}</Text>
         </Card.Header>
         <Card.Body css={{ textAlign: 'center' }}>
           <Image

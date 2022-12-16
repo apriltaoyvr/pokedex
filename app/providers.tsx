@@ -3,6 +3,8 @@ import { createTheme, NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { useServerInsertedHTML } from 'next/navigation';
 import { CssBaseline } from '@nextui-org/react';
+import StyledComponentsRegistry from './registry';
+import GlobalStyle from './GlobalStyle.styled';
 
 const lightTheme = createTheme({
   type: 'light',
@@ -18,15 +20,20 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   });
 
   return (
-    <NextThemesProvider
-      defaultTheme='system'
-      attribute='class'
-      value={{
-        light: lightTheme.className,
-        dark: darkTheme.className,
-      }}
-    >
-      <NextUIProvider>{children}</NextUIProvider>
-    </NextThemesProvider>
+    <StyledComponentsRegistry>
+      <NextThemesProvider
+        defaultTheme='system'
+        attribute='class'
+        value={{
+          light: lightTheme.className,
+          dark: darkTheme.className,
+        }}
+      >
+        <NextUIProvider>
+          <GlobalStyle />
+          {children}
+        </NextUIProvider>
+      </NextThemesProvider>
+    </StyledComponentsRegistry>
   );
 };
