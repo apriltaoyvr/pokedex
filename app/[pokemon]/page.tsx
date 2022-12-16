@@ -1,4 +1,5 @@
 import Body from './Body';
+import Evolutions from './(forms)/Evolutions';
 
 export default async function PokemonPage({
   params,
@@ -35,6 +36,8 @@ export default async function PokemonPage({
   return (
     <>
       <Body pokemon={pokemon}></Body>
+      {/* @ts-expect-error Server Component */}
+      <Evolutions pokemon={pokemon}></Evolutions>
     </>
   );
 }

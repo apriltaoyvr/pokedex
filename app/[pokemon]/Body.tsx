@@ -39,7 +39,6 @@ export default function Body({ pokemon }: { pokemon: PokemonBasic }) {
       <Grid xs justify='center'>
         <Text>{pokemon.description}</Text>
       </Grid>
-      <Evolutions pokemon={pokemon}/>
     </Grid.Container>
   );
 }
