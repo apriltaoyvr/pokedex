@@ -15,8 +15,8 @@ export default function RootLayout({
   return (
     <html className='dark-theme' style={{ colorScheme: 'dark' }}>
       <head />
-      <body className={inter.className}>
-        <Providers>
+      <Providers>
+        <body className={inter.className}>
           <Navbar />
           <Container fluid justify='center'>
             <Grid.Container gap={2} justify='center'>
@@ -24,8 +24,8 @@ export default function RootLayout({
             </Grid.Container>
             <Link href='https://pokeapi.co/'>Created with PokeAPI</Link>
           </Container>
-        </Providers>
-      </body>
+        </body>
+      </Providers>
     </html>
   );
 }

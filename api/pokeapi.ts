@@ -38,5 +38,3 @@ export async function fetchPage(url: string) {
   const json = await page.json();
   return json;
 }
-
-export const data = await fetchPokemon(page, perPage);
