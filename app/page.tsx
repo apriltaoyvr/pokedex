@@ -1,4 +1,5 @@
-import { fetchPokemon } from '../api/pokeapi';
+import { Suspense } from 'react';
+import { fetchPokemon } from '@/api/pokeapi';
 import PokeCard from '@/app/(components)/PokeCard';
 
 export default async function Home() {
@@ -17,7 +18,7 @@ export default async function Home() {
             image={pokemon.image}
             description={pokemon.description}
             types={pokemon.types}
-            key={pokemon.name}
+            key={pokemon.description}
           />
         ))}
     </>

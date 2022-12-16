@@ -1,3 +1,6 @@
+let page = 0;
+let perPage = 25;
+
 export async function fetchPokemon(page: number, perPage: number) {
   const directory = await fetch(
     `https://pokeapi.co/api/v2/pokemon/?offset=${
@@ -35,3 +38,5 @@ export async function fetchPage(url: string) {
   const json = await page.json();
   return json;
 }
+
+export const data = await fetchPokemon(page, perPage);

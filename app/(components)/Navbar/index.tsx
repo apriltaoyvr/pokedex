@@ -14,9 +14,7 @@ const Navbar = () => {
         <Text b>Gotta fetch 'em all!</Text>
       </NavbarUI.Content>
       <NavbarUI.Content>
-        <NavbarUI.Item>
-          <ThemeSwitch />
-        </NavbarUI.Item>
+          {/* <ThemeSwitch /> */}
       </NavbarUI.Content>
     </NavbarUI>
   );

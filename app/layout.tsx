@@ -1,4 +1,5 @@
 'use client';
+import { use, useEffect } from 'react';
 import { Inter } from '@next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 import { Providers } from '@/app/providers';
@@ -10,8 +11,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const mediaQuery = true;
+
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)');
+  }, [mediaQuery]);
+
   return (
-    <html>
+    <html className={mediaQuery ? 'dark-theme' : 'light-theme'}>
       <head />
       <Providers>
         <body className={inter.className}>

@@ -1,6 +1,6 @@
 'use client';
 import { useTheme as useNextTheme } from 'next-themes';
-import { Button, Switch, useTheme } from '@nextui-org/react';
+import { Switch, useTheme } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 

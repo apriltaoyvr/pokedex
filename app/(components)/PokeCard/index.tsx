@@ -33,7 +33,7 @@ const PokeCard = ({ name, image, types, id, description }: Pokemon) => {
             height={96}
             css={{ mb: '$2' }}
           />
-          <Text>{singleDesc}</Text>
+          <Text css={{p: '$10'}}>{singleDesc}</Text>
         </Card.Body>
         <Card.Footer>
           <Types types={types} />

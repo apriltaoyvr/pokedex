@@ -21,19 +21,8 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <StyledComponentsRegistry>
-      <NextThemesProvider
-        defaultTheme='system'
-        attribute='class'
-        value={{
-          light: lightTheme.className,
-          dark: darkTheme.className,
-        }}
-      >
-        <NextUIProvider>
-          <GlobalStyle />
-          {children}
-        </NextUIProvider>
-      </NextThemesProvider>
+      <GlobalStyle />
+      {children}
     </StyledComponentsRegistry>
   );
 };
