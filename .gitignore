@@ -17,6 +17,7 @@
 
 # production
 /build
+.turbo
 
 # misc
 .DS_Store
@@ -30,7 +31,6 @@ yarn-error.log*
 
 # local env files
 .env*.local
-.npmrc
 
 # vercel
 .vercel

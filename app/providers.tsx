@@ -1,7 +1,8 @@
-import type { AppProps } from 'next/app';
+'use client';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import Layout from './layout';
+import { useServerInsertedHTML } from 'next/navigation';
+import { CssBaseline } from '@nextui-org/react';
 
 const lightTheme = createTheme({
   type: 'light',
@@ -11,7 +12,11 @@ const darkTheme = createTheme({
   type: 'dark',
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export const Providers = ({ children }: { children: React.ReactNode }) => {
+  useServerInsertedHTML(() => {
+    return <>{CssBaseline.flush()}</>;
+  });
+
   return (
     <NextThemesProvider
       defaultTheme='system'
@@ -21,11 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
         dark: darkTheme.className,
       }}
     >
-      <NextUIProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </NextUIProvider>
+      <NextUIProvider>{children}</NextUIProvider>
     </NextThemesProvider>
   );
-}
+};
