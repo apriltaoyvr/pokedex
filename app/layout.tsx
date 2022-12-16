@@ -1,38 +1,31 @@
 'use client';
-import { use, useEffect } from 'react';
+import { Suspense, useEffect, lazy } from 'react';
 import { Inter } from '@next/font/google';
 const inter = Inter({ subsets: ['latin'] });
-import { Providers } from '@/app/providers';
 import { Container, Grid, Link } from '@nextui-org/react';
 import Navbar from './(components)/Navbar';
+import Providers from '@/app/providers';
+import Loading from './loading';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const mediaQuery = true;
-
-  useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)');
-  }, [mediaQuery]);
-
   return (
-    <html className={mediaQuery ? 'dark-theme' : 'light-theme'}>
+    <html className='dark-theme' style={{ colorScheme: 'dark' }}>
       <head />
-      <Providers>
-        <body className={inter.className}>
+      <body className={inter.className}>
+        <Providers>
           <Navbar />
-          <Container fluid>
+          <Container fluid justify='center'>
             <Grid.Container gap={2} justify='center'>
               {children}
-              <Grid>
-                <Link href='https://pokeapi.co/'>Created with PokeAPI</Link>
-              </Grid>
             </Grid.Container>
+            <Link href='https://pokeapi.co/'>Created with PokeAPI</Link>
           </Container>
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   );
 }

@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { fetchPokemon } from '@/api/pokeapi';
 import PokeCard from '@/app/(components)/PokeCard';
+import Loading from './loading';
 
 export default async function Home() {
   let page = 0;
@@ -8,7 +9,7 @@ export default async function Home() {
   const directory = await fetchPokemon(page, perPage);
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       {directory
         .filter((pokemon) => pokemon.is_default)
         .map((pokemon) => (
@@ -21,6 +22,6 @@ export default async function Home() {
             key={pokemon.description}
           />
         ))}
-    </>
+    </Suspense>
   );
 }

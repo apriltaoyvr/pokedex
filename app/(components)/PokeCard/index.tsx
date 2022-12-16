@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react';
 import { Grid, Card, Text, Image } from '@nextui-org/react';
 import Types from '../Types';
 
@@ -24,17 +25,18 @@ const PokeCard = ({ name, image, types, id, description }: Pokemon) => {
           </Text>
           <Text h5>#{id}</Text>
         </Card.Header>
-        <Card.Body css={{ textAlign: 'center' }}>
-          <Image
-            showSkeleton
-            src={image}
-            alt={name}
-            width={96}
-            height={96}
-            css={{ mb: '$2' }}
-          />
-          <Text css={{p: '$10'}}>{singleDesc}</Text>
-        </Card.Body>
+        <Suspense>
+          <Card.Body css={{ textAlign: 'center' }}>
+              <Image
+                src={image}
+                alt={name}
+                width={96}
+                height={96}
+                css={{ mb: '$2' }}
+              />
+            <Text css={{ p: '$10' }}>{singleDesc}</Text>
+          </Card.Body>
+        </Suspense>
         <Card.Footer>
           <Types types={types} />
         </Card.Footer>
