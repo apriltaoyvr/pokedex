@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-const Evolutions = async ({
+export default async function Evolutions({
   evolves_from,
   evolves_to,
   evolves_final,
   varieties,
-}: FormsEvolutions) => {
+}: FormsEvolutions) {
   return (
-    <>
+    <main>
       {evolves_from && <Link href={`/${evolves_from}`}>{evolves_from}</Link>}
       {evolves_to &&
         evolves_to.map((evolution) => {
@@ -26,8 +26,7 @@ const Evolutions = async ({
             </Link>
           );
         })}
-    </>
+    </main>
   );
 };
 
-export default Evolutions;
