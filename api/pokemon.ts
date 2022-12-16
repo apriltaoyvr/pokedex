@@ -1,17 +1,41 @@
 const perPage = 100;
 
+class Pokedex {
+  _pokemon: any[];
 
-class Pokedex{
-  constructor(){
-    this._pokemon = []
+  _pokemonByName: { name: string};
+
+  constructor() {
+    this._pokemon = [];
+    this._pokemonByName = {name: ''};
   }
 
-  get pokemon(){
-    return this._pokemon
+  get pokemon() {
+    return this._pokemon;
   }
 
-  push(data){
-    this._pokemon.push(...data)
+  async getPokemonByName(name: string) {
+    //@ts-ignore
+    if (this._pokemonByName[name]) return this._pokemonByName[name];
+
+    const pokemon = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${name}/`
+    ).then((r) => r.json());
+    //@ts-ignore
+    this._pokemonByName[name] = pokemon;
+    return pokemon;
+  }
+
+  push(data: any) {
+    this._pokemon.push(
+      ...data.filter(
+        (item: { is_default: boolean }) => item.is_default === true
+      )
+    );
+    data.forEach((element: any) => {
+      //@ts-ignore
+      this._pokemonByName[element.name] = element;
+    });
     this.onChange();
   }
 
@@ -20,25 +44,31 @@ class Pokedex{
   }
 }
 
-
 let allPokemon = new Pokedex();
 
-async function fetchData() {
- for (let i = 0; i < 12; i++) {
+async function fetchData(onStep = () => {}) {
+  for (let i = 0; i < 12; i++) {
     allPokemon.push(await fetchPage(i));
+    onStep();
     await delay(2000);
- }
+  }
 }
 
-async function fetchPage(page) {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${page*perPage}&limit=${perPage}`);
+export async function fetchPage(page: any) {
+  const response = await fetch(
+    `https://pokeapi.co/api/v2/pokemon/?offset=${
+      page * perPage
+    }&limit=${perPage}`
+  );
   const data = await response.json();
 
+  const output = [];
   for (let result of data.results) {
-    result.data = await fetch(result.url).then(response => response.json());
+    const pData = await fetch(result.url).then((response) => response.json());
+    output.push({ ...result, ...pData });
   }
 
-  return data.results;
+  return output;
 }
 
 async function delay(ms: number) {

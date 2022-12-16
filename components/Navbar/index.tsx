@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import { useTheme as useNextTheme } from 'next-themes';
 import { Navbar, Text, Button, useTheme } from '@nextui-org/react';
-import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 export default function Nav(props: any) {
   const { setTheme } = useNextTheme();
@@ -26,9 +28,17 @@ export default function Nav(props: any) {
             bordered
             color='gradient'
             auto
-            onPress={(e) => setTheme(isDark ? 'light' : 'dark')}
+            onPress={() => setTheme(isDark ? 'light' : 'dark')}
           >
-            {isDark ? 'Dark' : 'Light'}
+            <FontAwesomeIcon
+              icon={isDark ? faMoon : faSun}
+              size='lg'
+              fixedWidth
+              style={{
+                minHeight: '1rem',
+                minWidth: '1rem',
+              }}
+            />
           </Button>
         </Navbar.Content>
       </Navbar>

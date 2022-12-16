@@ -1,14 +1,15 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { Inter } from '@next/font/google';
 const inter = Inter({ subsets: ['latin'] });
-import { Container, Grid, Textarea, Link, Spacer } from '@nextui-org/react';
-import PokeCard from '../components/PokeCard';
-import allPokemon from '../api/pokemon';
+import { Container, Grid, Textarea, Link, Input } from '@nextui-org/react';
+import PokeCard from '@/components/PokeCard';
+import allPokemon from '@/api/pokemon';
 
 export default function Home() {
   const [pokimens, setPokimens] = useState([...allPokemon.pokemon]);
   const [filter, setFilter] = useState('');
+  const [maxItems, setMaxItems] =  useState(50);
   allPokemon.onChange = () => {
     setPokimens([...allPokemon.pokemon]);
   };
@@ -27,28 +28,43 @@ export default function Home() {
         justify='center'
         alignContent='center'
       >
-        <Textarea
+        <Input
           label='Search for a pokemon'
           placeholder='Ditto'
           underlined
-          minRows={1}
-          maxRows={3}
+          type='text'
           css={{
             mb: '$10',
-            minWidth: '25%',
+            mr: '$10',
           }}
           onChange={(e) => setFilter(e.target.value)}
-        ></Textarea>
+        />
+        <Input
+          clearable
+          underlined
+          label='Max items'
+          helperText='0 for infinite scroll'
+          type='number'
+          initialValue='50'
+          placeholder='50'
+          css={{
+            mb: '$10',
+          }}
+          onChange={(e) => setMaxItems(Number(e.target.value))}
+        />
+
         <Grid.Container gap={2} justify='center' className={inter.className}>
           {pokimens
             .filter((pokemon) => pokemon.name.includes(filter.toLowerCase()))
+            .slice(0, maxItems || Infinity)
             .map((pokemon) => {
               return (
-                <Grid key={pokemon?.data?.id}>
+                <Grid key={pokemon.id}>
                   <PokeCard
                     name={pokemon.name}
-                    image={pokemon.data.sprites.front_default}
-                    types={pokemon.data.types}
+                    image={pokemon.sprites.front_default}
+                    types={pokemon.types}
+                    id={pokemon.id}
                     key={pokemon.name}
                   />
                 </Grid>
