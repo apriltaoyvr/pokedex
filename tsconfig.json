@@ -28,12 +28,9 @@
       "@/app/*": [
         "app/*"
       ],
-      "@/api/*": [
-        "api/*"
+      "@/types/*": [
+        "types/*"
       ],
-      "@/components/*": [
-        "app/(components)/*"
-      ]
     }
   },
   "include": [

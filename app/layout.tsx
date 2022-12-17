@@ -1,40 +1,26 @@
 'use client';
-import { Inter } from '@next/font/google';
-const inter = Inter({ subsets: ['latin'] });
-import { Container, Grid, Link, Spacer } from '@nextui-org/react';
+import './global.css';
+import { useEffect, useState } from 'react';
 import Navbar from './(components)/Navbar';
-import Providers from '@/app/providers';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }, []);
+
   return (
-    <html className='dark-theme' style={{ colorScheme: 'dark' }}>
+    <html className={isDark ? 'dark' : 'light'}>
       <head />
-      <Providers>
-        <body className={inter.className}>
-          <Navbar />
-          <Container
-            fluid
-            display='flex'
-            justify='center'
-            alignContent='center'
-          >
-            <Grid.Container gap={2} justify='center' alignContent='center'>
-              {children}
-            </Grid.Container>
-            <Spacer y={4} />
-            <Grid xs={12} justify='center'
-            >
-              <Link href='https://pokeapi.co/' isExternal css={{ m: '$10' }}>
-                Created with PokeAPI
-              </Link>
-            </Grid>
-          </Container>
-        </body>
-      </Providers>
+      <body className='scrollbar-thin scrollbar-thumb-neutral-700 hover:scrollbar-thumb-green-600 scrollbar-track-neutral-300 h-32 overflow-y-scroll	bg-neutral-100 text-neutral-900 subpixel-antialiased dark:bg-neutral-900 dark:text-neutral-100'>
+        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <main className='m-h-screen container'>{children}</main>
+      </body>
     </html>
   );
 }

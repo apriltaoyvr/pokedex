@@ -1,53 +1,52 @@
 import { Suspense } from 'react';
 import PokeCard from '@/app/(components)/PokeCard';
-import Loading from './loading';
+import PokeAPI from 'pokeapi-typescript';
+
+async function getPokemon(name: string) {
+  let data = await PokeAPI.Pokemon.fetch(name);
+  return data;
+}
+
+async function getPokemonSpecies(name: string) {
+  let data = await PokeAPI.PokemonSpecies.fetch(name);
+  return data;
+}
 
 export default async function Home() {
-  let page = 0;
-  let perPage = 150;
-  const directory = await fetch(
-    `https://pokeapi.co/api/v2/pokemon-species/?offset=${
-      page * perPage
-    }&limit=${perPage}`
-  );
-  const data: Directory = await directory.json();
+  const pokemonList = [];
+  const resourceList = await PokeAPI.Pokemon.list(150, 0);
 
-  const output: PokemonBasic[] = [];
-  for (let result of data.results) {
-    const pData = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${result.name}/`
-    ).then((response) => response.json());
-    const pSpecies = await fetch(
-      `https://pokeapi.co/api/v2/pokemon-species/${result.name}/`
-    ).then((response) => response.json());
-
-    const pokemon: PokemonBasic = {
-      name: pSpecies.name,
-      id: pSpecies.id,
-      image: pData.sprites.front_default,
-      is_default: pData.is_default,
-      types: pData.types,
-      description: pSpecies.flavor_text_entries,
-    };
-
-    output.push(pokemon);
+  for (let pokemon of resourceList.results) {
+    const pokemonBasic = getPokemon(pokemon.name);
+    const pokemonSpecies = getPokemonSpecies(pokemon.name);
+    const [basicData, speciesData] = await Promise.all([
+      pokemonBasic,
+      pokemonSpecies,
+    ]);
+    pokemonList.push({ ...basicData, ...speciesData });
   }
 
   return (
-    <Suspense fallback={<Loading />}>
-      {output
-        .filter((pokemon) => pokemon.is_default)
-        .map((pokemon) => (
-          <PokeCard
-            name={pokemon.name}
-            id={pokemon.id}
-            image={pokemon.image}
-            description={pokemon.description}
-            types={pokemon.types}
-            key={pokemon.description}
-            is_default={true}
-          />
+    <section className='min-w-screen top-[100px] grid grid-flow-row-dense	 place-content-center	 place-items-center gap-2 px-8 py-2 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4'>
+      <Suspense
+        fallback={
+          <div className='m-8 flex h-96 w-60 animate-pulse flex-col rounded shadow-md sm:w-80'>
+            <div className='h-48 rounded-t dark:bg-tertiary-700'></div>
+            <div className='flex-1 space-y-4 px-4 py-8 dark:bg-tertiary-900 sm:p-8'>
+              <div className='h-6 w-full rounded dark:bg-tertiary-700'></div>
+              <div className='h-6 w-full rounded dark:bg-tertiary-700'></div>
+              <div className='h-6 w-3/4 rounded dark:bg-tertiary-700'></div>
+            </div>
+          </div>
+        }
+      >
+        {pokemonList.map((pokemon) => (
+          <>
+            {/* @ts-expect-error Server Component */}
+            <PokeCard promise={pokemon} key={pokemon.name} />
+          </>
         ))}
-    </Suspense>
+      </Suspense>
+    </section>
   );
 }
