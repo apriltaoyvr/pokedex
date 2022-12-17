@@ -1,3 +1,3 @@
 import { IPokemon, IPokemonSpecies } from 'pokeapi-typescript';
 
-export type Pokemon = IPokemon & IPokemonSpecies;
+export type PokemonType = IPokemon & IPokemonSpecies;
