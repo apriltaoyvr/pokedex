@@ -13,10 +13,8 @@ async function getPokemonSpecies(name: string) {
 
 export default async function SubpageLayout({
   params,
-  children,
 }: {
   params: { pokemon: string };
-  children: React.ReactNode;
 }) {
   const pokemonBasic = getPokemon(params.pokemon);
   const pokemonSpecies = getPokemonSpecies(params.pokemon);
@@ -29,6 +27,7 @@ export default async function SubpageLayout({
 
   return (
     <article>
+      {/* @ts-expect-error Server Component */}
       <PokemonPage promise={pokemon} />
     </article>
   );

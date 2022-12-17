@@ -10,7 +10,7 @@ const PokeCard = async ({ promise }: any) => {
   );
 
   return (
-    <article className='max-h-sm align-content-center flex min-h-full min-w-full max-w-sm flex-col	 justify-between gap-4 rounded-md bg-neutral-200 p-6 text-center text-secondary-900 shadow-md	transition-all	hover:bg-secondary-100/90	hover:shadow-xl	dark:bg-secondary-700 dark:text-secondary-100 hover:dark:bg-secondary-700/90	'>
+    <article className='max-h-sm align-content-center flex min-h-full min-w-full max-w-sm flex-col	 justify-between gap-4 rounded-md bg-secondary-200 p-6 text-center text-secondary-900 shadow-md	transition-all	hover:bg-secondary-200/90	hover:shadow-xl	dark:bg-secondary-700 dark:text-secondary-100 hover:dark:bg-secondary-700/90	'>
       <Link href={`/${pokemon.name}`}>
         <header className='flex flex-col place-content-center place-items-center gap-2'>
           <span className='text-2xl font-semibold capitalize	'>

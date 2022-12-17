@@ -21,12 +21,7 @@ const PokemonPage = async ({ promise }: { promise: Promise<PokemonType> }) => {
           quality={100}
         />
       </header>
-      <main>
-        <p className='text-sm'>
-          {description[description.length - 1].flavor_text}
-        </p>
-      </main>
-      <footer className='m-2 flex flex-row place-content-center place-items-center gap-4 place-self-end capitalize'>
+      <main className='m-2 flex flex-row place-content-center place-items-center gap-4 capitalize'>
         {pokemon.types.map((type) => (
           <figure
             key={pokemon.name + type.type.name + type.slot}
@@ -37,6 +32,11 @@ const PokemonPage = async ({ promise }: { promise: Promise<PokemonType> }) => {
             </p>
           </figure>
         ))}
+      </main>
+      <footer>
+        <p className='text-sm'>
+          {description[description.length - 1].flavor_text}
+        </p>
       </footer>
     </article>
   );

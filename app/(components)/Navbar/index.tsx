@@ -13,7 +13,7 @@ const Navbar = ({ isDark, setIsDark }: DarkMode) => {
       <header>
         <Link
           href='/'
-          className='text-lg font-semibold text-secondary-800 transition-all	hover:text-tertiary-700 dark:text-secondary-200 hover:dark:text-tertiary-100	'
+          className='text-lg font-semibold text-secondary-800 transition-all	hover:text-primary-600 dark:text-secondary-200 hover:dark:text-tertiary-100	'
         >
           <HomeIcon size='medium' />
         </Link>
@@ -26,7 +26,7 @@ const Navbar = ({ isDark, setIsDark }: DarkMode) => {
       <footer>
         <button
           onClick={() => setIsDark(!isDark)}
-          className='min-w-1 min-h-1  p-2  text-secondary-800 transition-all hover:text-secondary-700 dark:text-secondary-200 hover:dark:text-tertiary-100	'
+          className='min-w-1 min-h-1  p-2  text-secondary-800 transition-all hover:text-primary-600 dark:text-secondary-200 hover:dark:text-tertiary-100	'
         >
           {isDark ? (
             <MoonIcon size='medium' aria-label='Dark mode' />
