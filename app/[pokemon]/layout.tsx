@@ -16,12 +16,14 @@ export default async function SubpageLayout({
 }: {
   params: { pokemon: string };
 }) {
-  const pokemonBasic = getPokemon(params.pokemon);
-  const pokemonSpecies = getPokemonSpecies(params.pokemon);
-  const [basicData, speciesData] = await Promise.all([
-    pokemonBasic,
-    pokemonSpecies,
-  ]);
+  let basicData, speciesData;
+  speciesData = await getPokemonSpecies(params.pokemon);
+
+  try {
+    basicData = await getPokemon(params.pokemon);
+  } catch (error) {
+    basicData = await getPokemon(speciesData.varieties[0].pokemon.name);
+  }
 
   const evolutionChain: IEvolutionChain = await fetch(
     speciesData.evolution_chain.url

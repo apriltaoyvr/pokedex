@@ -9,7 +9,9 @@ const PokeCard = async ({ promise }: any) => {
   try {
     pokemonBasic = await promise.pokemonBasic;
   } catch (error) {
-    pokemonBasic = await PokeAPI.Pokemon.fetch(pokemonSpecies.varieties[0].pokemon.name);
+    pokemonBasic = await PokeAPI.Pokemon.fetch(
+      pokemonSpecies.varieties[0].pokemon.name
+    );
   }
   const pokemon: PokemonType = { ...pokemonBasic, ...pokemonSpecies };
 
@@ -41,7 +43,7 @@ const PokeCard = async ({ promise }: any) => {
           {pokemon.types.map((type) => (
             <figure
               key={pokemon.name + type.type.name + type.slot}
-              className={`bg-type-${type.type.name} rounded shadow mr-2 text-sm px-2.5 py-0.5 font-semibold`}
+              className={`bg-type-${type.type.name} mr-2 rounded px-2.5 py-0.5 text-sm font-semibold shadow`}
             >
               <p className='text-neutral-800 transition-colors'>
                 {type.type.name}

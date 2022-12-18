@@ -1,9 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import PokeAPI, { IChainLink, IEvolutionChain, IPokemon, IPokemonSpecies } from 'pokeapi-typescript';
+import PokeAPI, {
+  IChainLink,
+  IEvolutionChain,
+  IPokemon,
+  IPokemonSpecies,
+} from 'pokeapi-typescript';
 
 interface PageProps extends IPokemon, IPokemonSpecies, IEvolutionChain {
-  evolutionChain: IChainLink
+  evolutionChain: IChainLink;
 }
 
 export default async function PokemonPage(props: any) {
@@ -54,8 +59,7 @@ export default async function PokemonPage(props: any) {
       </footer>
     </article>
   );
-};
-
+}
 
 async function buildEvolutionTree(evolutionChain: IChainLink, current: string) {
   const evolutions = [];
@@ -64,7 +68,8 @@ async function buildEvolutionTree(evolutionChain: IChainLink, current: string) {
     evolutions.push(await buildEvolutionTree(evolution, current));
   }
 
-  const evData = await PokeAPI.Pokemon.fetch(evolutionChain.species.name);
+  let evData = await PokeAPI.Pokemon.fetch(evolutionChain.species.name);
+
   const content = (
     <Link href={`/${evolutionChain.species.name}`}>
       <figure
