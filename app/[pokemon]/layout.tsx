@@ -1,5 +1,5 @@
 import PokemonPage from './page';
-import PokeAPI from 'pokeapi-typescript';
+import PokeAPI, { IEvolutionChain } from 'pokeapi-typescript';
 
 async function getPokemon(name: string) {
   let data = await PokeAPI.Pokemon.fetch(name);
@@ -23,12 +23,20 @@ export default async function SubpageLayout({
     pokemonSpecies,
   ]);
 
-  const pokemon = { ...basicData, ...speciesData };
+  const evolutionChain: IEvolutionChain = await fetch(
+    speciesData.evolution_chain.url
+  ).then((r) => r.json());
+
+  const pokemon = {
+    ...basicData,
+    ...speciesData,
+    evolutionChain: evolutionChain.chain,
+  };
 
   return (
-    <article>
+    <article className='m-h-full w-full flex place-content-center place-items-center'>
       {/* @ts-expect-error Server Component */}
-      <PokemonPage promise={pokemon} />
+      <PokemonPage pokemon={pokemon} />
     </article>
   );
 }
