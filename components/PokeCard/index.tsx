@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getPokemonDetails } from '@/api/pokedex';
+import { getPokemonDetails } from '@/app/pokedex';
 import PokeTypes from '../PokeTypes';
 
 const PokeCard = async ({ name }: {name: string}) => {

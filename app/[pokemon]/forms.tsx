@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import CardSkeleton from '../../components/CardSkeleton';
 import PokeTypes from '../../components/PokeTypes';
-import { getPokemonBasic } from '@/api/pokedex';
+import { getPokemonBasic } from '@/app/pokedex';
 import { PageProps } from './page';
 import { IPokemon } from 'pokeapi-typescript';
 

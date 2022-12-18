@@ -30,5 +30,4 @@ const CardSkeleton = ({ name }: {name: string}) => {
     </article>
   );
 };
-
 export default CardSkeleton;

@@ -8,8 +8,7 @@ import {
 } from 'pokeapi-typescript';
 import Evolutions from './evolutions';
 import Forms from './forms';
-import PokeTypes from '../../components/PokeTypes';
-import CardSkeleton from '../../components/CardSkeleton';
+import PokeTypes from '@/components/PokeTypes';
 
 export interface PageProps extends IPokemon, IPokemonSpecies, IEvolutionChain {
   evolutionChain: IChainLink;

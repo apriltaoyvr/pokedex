@@ -1,6 +1,6 @@
 import PokemonPage from './page';
 import PokeAPI, { IEvolutionChain } from 'pokeapi-typescript';
-import { getPokemonBasic, getPokemonSpecies } from '@/api/pokedex'
+import { getPokemonBasic, getPokemonSpecies } from '@/app/pokedex'
 
 export default async function SubpageLayout({
   params,
@@ -31,7 +31,6 @@ export default async function SubpageLayout({
   return (
     <>
       <main className='m-h-full flex w-full place-content-center place-items-center'>
-        {/* @ts-expect-error Server Component */}
         <PokemonPage pokemon={pokemon} />
       </main>
     </>

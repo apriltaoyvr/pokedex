@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getDirectory } from 'api/pokedex';
+import { getDirectory } from '@/app/pokedex';
 import PokeCard from '@/components/PokeCard';
 import CardSkeleton from '../components/CardSkeleton';
 
