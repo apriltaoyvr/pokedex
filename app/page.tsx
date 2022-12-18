@@ -15,7 +15,7 @@ async function getPokemonSpecies(name: string) {
 
 export default async function Home() {
   const pokemonList = [];
-  const resourceList = await PokeAPI.PokemonSpecies.list(150, 0);
+  const resourceList = await PokeAPI.PokemonSpecies.listAll();
 
   for (let pokemon of resourceList.results) {
     const pokemonBasic = getPokemon(pokemon.name);
