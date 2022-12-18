@@ -10,6 +10,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [isDark, setIsDark] = useState(true);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -26,7 +27,7 @@ export default function RootLayout({
         <footer className='mt-4 flex place-content-center border-t border-solid	border-t-secondary-800/5 p-4 dark:border-t-secondary-200/5	'>
           <Link
             href='https://pokeapi.co/'
-            className='text-secondary-800 hover:text-secondary-700 dark:text-secondary-200 dark:hover:text-secondary-100 text-sm'
+            className='text-sm text-secondary-800 hover:text-secondary-700 dark:text-secondary-200 dark:hover:text-secondary-100'
           >
             Created with PokeAPI
           </Link>

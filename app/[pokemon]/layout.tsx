@@ -34,9 +34,11 @@ export default async function SubpageLayout({
   };
 
   return (
-    <article className='m-h-full w-full flex place-content-center place-items-center'>
-      {/* @ts-expect-error Server Component */}
-      <PokemonPage pokemon={pokemon} />
-    </article>
+    <>
+      <main className='m-h-full flex w-full place-content-center place-items-center'>
+        {/* @ts-expect-error Server Component */}
+        <PokemonPage pokemon={pokemon} />
+      </main>
+    </>
   );
 }
