@@ -26,12 +26,9 @@ const PokeCard = async ({ promise }: any) => {
           <span className='text-2xl font-semibold capitalize	'>
             {pokemon.name}
           </span>
-          <Image
+          <img
             src={pokemon.sprites.front_default}
             alt={pokemon.name}
-            width={96}
-            height={96}
-            quality={100}
           />
         </header>
         <main>
