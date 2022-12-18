@@ -1,9 +1,13 @@
-import { PokemonType } from '@/types/api';
 import Image from 'next/image';
 import Link from 'next/link';
-import PokeAPI, { IChainLink } from 'pokeapi-typescript';
+import PokeAPI, { IChainLink, IEvolutionChain, IPokemon, IPokemonSpecies } from 'pokeapi-typescript';
 
-const PokemonPage = async ({ pokemon }: { pokemon: PokemonType }) => {
+interface PageProps extends IPokemon, IPokemonSpecies, IEvolutionChain {
+  evolutionChain: IChainLink
+}
+
+export default async function PokemonPage(props: any) {
+  let pokemon: PageProps = props.pokemon;
   const description = pokemon.flavor_text_entries.filter(
     (entry) => entry.language.name === 'en'
   );
@@ -11,12 +15,8 @@ const PokemonPage = async ({ pokemon }: { pokemon: PokemonType }) => {
   return (
     <article className='align-content-center flex min-h-full min-w-full max-w-sm flex-col	 place-content-center place-items-center gap-4 rounded-md py-12 px-4 text-center transition-all'>
       <header className='flex flex-col place-content-center place-items-center gap-2'>
-        <h1 className='text-3xl font-semibold capitalize	'>
-          {pokemon.name}
-        </h1>
-        <span className="text-sm font-semibold"> 
-          Pokemon #{pokemon.id}
-        </span>
+        <h1 className='text-3xl font-semibold capitalize	'>{pokemon.name}</h1>
+        <span className='text-sm font-semibold'>Pokemon #{pokemon.id}</span>
       </header>
       <section>
         <Image
@@ -56,7 +56,6 @@ const PokemonPage = async ({ pokemon }: { pokemon: PokemonType }) => {
   );
 };
 
-export default PokemonPage;
 
 async function buildEvolutionTree(evolutionChain: IChainLink, current: string) {
   const evolutions = [];

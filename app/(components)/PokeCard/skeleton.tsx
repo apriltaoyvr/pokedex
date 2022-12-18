@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const CardSkeleton = ({ name }) => {
+const CardSkeleton = ({ name }: {name: string}) => {
   return (
     <article className='max-h-sm align-content-center flex min-h-full min-w-full max-w-sm flex-col	 justify-between gap-4 rounded-md bg-secondary-200/10 p-6 text-center text-secondary-900 shadow-md	transition-all	hover:bg-secondary-200/90	hover:shadow-xl	dark:bg-secondary-700/10 dark:text-secondary-100 hover:dark:bg-secondary-700/90	'>
       <Link href={`/${name}`}>
