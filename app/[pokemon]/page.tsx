@@ -32,7 +32,7 @@ export default async function PokemonPage(props: any) {
         {pokemon.types.map((type) => (
           <figure
             key={pokemon.name + type.type.name + type.slot}
-            className={`bg-type-${type.type.name} rounded-full px-2 py-1 text-sm font-semibold shadow`}
+            className={`bg-type-${type.type.name} mr-2 rounded px-2.5 py-0.5 text-sm font-semibold shadow`}
           >
             <p className='text-neutral-800 transition-colors'>
               {type.type.name}

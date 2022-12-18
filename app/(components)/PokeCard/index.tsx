@@ -1,10 +1,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { PokemonType } from '@/types/api';
+import PokeAPI from 'pokeapi-typescript';
 
 const PokeCard = async ({ promise }: any) => {
-  const pokemonBasic = await promise.pokemonBasic;
-  const pokemonSpecies = await promise.pokemonSpecies;
+  let pokemonBasic, pokemonSpecies;
+  pokemonSpecies = await promise.pokemonSpecies;
+  try {
+    pokemonBasic = await promise.pokemonBasic;
+  } catch (error) {
+    pokemonBasic = await PokeAPI.Pokemon.fetch(pokemonSpecies.varieties[0].pokemon.name);
+  }
   const pokemon: PokemonType = { ...pokemonBasic, ...pokemonSpecies };
 
   const description = pokemon.flavor_text_entries.filter(
@@ -35,7 +41,7 @@ const PokeCard = async ({ promise }: any) => {
           {pokemon.types.map((type) => (
             <figure
               key={pokemon.name + type.type.name + type.slot}
-              className={`bg-type-${type.type.name} rounded-full px-2 py-1 text-sm font-semibold shadow`}
+              className={`bg-type-${type.type.name} rounded shadow mr-2 text-sm px-2.5 py-0.5 font-semibold`}
             >
               <p className='text-neutral-800 transition-colors'>
                 {type.type.name}

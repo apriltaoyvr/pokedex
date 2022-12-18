@@ -37,6 +37,7 @@ export default async function Home() {
           </Suspense>
         ))}
       </section>
+      <button className='absolute bottom-0 right-0 m-2 bg-primary-100 text-primary-700 shadow-lg dark:bg-primary-700 dark:text-primary-100'></button>
     </>
   );
 }
