@@ -28,6 +28,9 @@
       "@/app/*": [
         "app/*"
       ],
+      "@/components/*": [
+        "components/*"
+      ],
       "@/types/*": [
         "types/*"
       ],

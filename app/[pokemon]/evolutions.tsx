@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { PageProps } from './page';
-import CardSkeleton from '../(components)/CardSkeleton/index';
+import CardSkeleton from '../../components/CardSkeleton/index';
 
 export default async function Evolutions({ pokemon }: { pokemon: PageProps }) {
   const evolutionChain = pokemon.evolutionChain;

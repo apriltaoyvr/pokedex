@@ -1,11 +1,10 @@
 import { Suspense } from 'react';
 import { getDirectory } from 'api/pokedex';
-import PokeCard from '@/app/(components)/PokeCard';
-import CardSkeleton from './(components)/CardSkeleton';
+import PokeCard from '@/components/PokeCard';
+import CardSkeleton from '../components/CardSkeleton';
 
- 
 export default async function Home() {
-  const resourceList = await getDirectory(200, 600);
+  const resourceList = await getDirectory(100, 600);
 
   return (
     <>
