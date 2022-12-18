@@ -1,23 +1,12 @@
 import { Suspense } from 'react';
-import PokeAPI from 'pokeapi-typescript';
-import Link from 'next/link';
+import { getPokemon, getPokemonSpecies, getDirectory } from 'api/pokedex';
 import PokeCard from '@/app/(components)/PokeCard';
 import CardSkeleton from './(components)/PokeCard/skeleton';
-import { ChevronUpIcon } from '@primer/octicons-react';
 
-async function getPokemon(name: string) {
-  let data = await PokeAPI.Pokemon.fetch(name);
-  return data;
-}
-
-async function getPokemonSpecies(name: string) {
-  let data = await PokeAPI.PokemonSpecies.fetch(name);
-  return data;
-}
 
 export default async function Home() {
   const pokemonList = [];
-  const resourceList = await PokeAPI.PokemonSpecies.listAll();
+  const resourceList = await getDirectory(150);
 
   for (let pokemon of resourceList.results) {
     const pokemonBasic = getPokemon(pokemon.name);

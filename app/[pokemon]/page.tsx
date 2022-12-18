@@ -24,12 +24,9 @@ export default async function PokemonPage(props: any) {
         <span className='text-sm font-semibold'>Pokemon #{pokemon.id}</span>
       </header>
       <section>
-        <Image
+        <img
           src={pokemon.sprites.front_default}
           alt={pokemon.name}
-          width={96}
-          height={96}
-          quality={100}
           draggable='false'
         />
       </section>

@@ -1,28 +1,20 @@
 import PokemonPage from './page';
 import PokeAPI, { IEvolutionChain } from 'pokeapi-typescript';
-
-async function getPokemon(name: string) {
-  let data = await PokeAPI.Pokemon.fetch(name);
-  return data;
-}
-
-async function getPokemonSpecies(name: string) {
-  let data = await PokeAPI.PokemonSpecies.fetch(name);
-  return data;
-}
+import { getPokemon, getPokemonSpecies } from '@/api'
 
 export default async function SubpageLayout({
   params,
 }: {
   params: { pokemon: string };
 }) {
-  let basicData, speciesData;
+  let basicData, speciesData, hasForms;
   speciesData = await getPokemonSpecies(params.pokemon);
 
   try {
     basicData = await getPokemon(params.pokemon);
   } catch (error) {
     basicData = await getPokemon(speciesData.varieties[0].pokemon.name);
+    hasForms = true;
   }
 
   const evolutionChain: IEvolutionChain = await fetch(
@@ -33,6 +25,7 @@ export default async function SubpageLayout({
     ...basicData,
     ...speciesData,
     evolutionChain: evolutionChain.chain,
+    hasForms: hasForms,
   };
 
   return (
