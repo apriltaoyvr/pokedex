@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 const CardSkeleton = ({ name }: {name: string}) => {
   return (
@@ -27,6 +26,7 @@ const CardSkeleton = ({ name }: {name: string}) => {
           <div className='mb-4 h-2.5 w-24 rounded-full bg-secondary-200 dark:bg-secondary-700'></div>
         </footer>
       </Link>
+      <span className='sr-only'>Loading...</span>
     </article>
   );
 };

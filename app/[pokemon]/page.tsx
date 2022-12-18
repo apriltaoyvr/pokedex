@@ -1,14 +1,19 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import PokeAPI, {
+import { getPokemonBasic } from '@/api/pokedex';
+import {
   IChainLink,
   IEvolutionChain,
   IPokemon,
   IPokemonSpecies,
 } from 'pokeapi-typescript';
+import Evolutions from './evolutions';
+import PokeTypes from '../(components)/PokeTypes';
+import CardSkeleton from '../(components)/CardSkeleton';
 
-interface PageProps extends IPokemon, IPokemonSpecies, IEvolutionChain {
+export interface PageProps extends IPokemon, IPokemonSpecies, IEvolutionChain {
   evolutionChain: IChainLink;
+  hasForms: boolean;
 }
 
 export default async function PokemonPage(props: any) {
@@ -17,6 +22,15 @@ export default async function PokemonPage(props: any) {
     (entry) => entry.language.name === 'en'
   );
 
+  const formArray: IPokemon[] = [];
+
+  if (pokemon.hasForms) {
+    for (let variation of pokemon.varieties) {
+      const form = await getPokemonBasic(variation.pokemon.name);
+      formArray.push(form);
+    }
+  }
+
   return (
     <article className='align-content-center flex min-h-full min-w-full max-w-sm flex-col	 place-content-center place-items-center gap-4 rounded-md py-12 px-4 text-center transition-all'>
       <header className='flex flex-col place-content-center place-items-center gap-2'>
@@ -24,83 +38,63 @@ export default async function PokemonPage(props: any) {
         <span className='text-sm font-semibold'>Pokemon #{pokemon.id}</span>
       </header>
       <section>
-        <img
-          src={pokemon.sprites.front_default}
-          alt={pokemon.name}
-          draggable='false'
-        />
+        <Suspense>
+          <Image
+            src={pokemon.sprites.front_default}
+            alt={pokemon.name}
+            draggable='false'
+            width={96}
+            height={96}
+          />
+        </Suspense>
       </section>
       <section className='m-2 flex flex-row place-content-center place-items-center gap-4 capitalize'>
-        {pokemon.types.map((type) => (
-          <figure
-            key={pokemon.name + type.type.name + type.slot}
-            className={`bg-type-${type.type.name} mr-2 rounded px-2.5 py-0.5 text-sm font-semibold shadow`}
-          >
-            <p className='text-neutral-800 transition-colors'>
-              {type.type.name}
-            </p>
-          </figure>
-        ))}
+        <PokeTypes types={pokemon.types} />
       </section>
       <section className='mb-4'>
         <p className='m-w-prose'>
           {description[description.length - 1].flavor_text}
         </p>
       </section>
-      <footer>
-        <h2 className='mb-4 text-lg font-semibold'>Evolution Chain</h2>
-        {!(
-          !pokemon.evolutionChain.evolves_to.length &&
-          !pokemon.evolves_from_species
-        ) && (await buildEvolutionTree(pokemon.evolutionChain, pokemon.name))}
-      </footer>
+      {(pokemon.evolutionChain.evolves_to.length ||
+        pokemon.evolves_from_species) && (
+        <section>
+          {/* @ts-expect-error Server Component */}
+          <Evolutions pokemon={pokemon} />
+        </section>
+      )}
+
+      {pokemon.hasForms && (
+        <section>
+          <h2 className='mb-4 text-xl font-bold'>Varieties</h2>
+          <div className='flex flex-row flex-wrap place-content-center place-items-center gap-4'>
+            {formArray
+              .filter((form) => form.is_default === false)
+              .map((form) => (
+                <Suspense
+                  fallback={<CardSkeleton name={form.name} />}
+                  key={form.name}
+                >
+                  <figure
+                    className={`card flex flex-col place-content-center place-items-center`}
+                  >
+                    <h3 className='capitalize'>
+                      {form.name.replaceAll('-', ' ')}
+                    </h3>
+                    <Image
+                      src={form.sprites.front_default}
+                      alt={form.name}
+                      draggable={false}
+                      width={96}
+                      height={96}
+                    />
+                    <PokeTypes types={form.types} />
+                  </figure>
+                </Suspense>
+              ))}
+          </div>
+        </section>
+      )}
     </article>
   );
-}
-
-async function buildEvolutionTree(evolutionChain: IChainLink, current: string) {
-  const evolutions = [];
-
-  for (let evolution of evolutionChain.evolves_to) {
-    evolutions.push(await buildEvolutionTree(evolution, current));
-  }
-
-  let evData = await PokeAPI.Pokemon.fetch(evolutionChain.species.name);
-
-  const content = (
-    <Link href={`/${evolutionChain.species.name}`}>
-      <figure
-        key={evolutionChain.species.name}
-        className='flex flex-col place-content-center place-items-center gap-2'
-      >
-        <main
-          className={`${
-            evolutionChain.species.name == current
-              ? 'current-evolution'
-              : 'other-evolution'
-          }`}
-        >
-          <span
-            className={`capitalize ${
-              evolutionChain.species.name == current
-                ? 'font-bold'
-                : 'font-semibold'
-            }`}
-          >
-            {evolutionChain.species.name}
-          </span>
-          <Image
-            width={96}
-            height={96}
-            alt={'a'}
-            src={evData.sprites.front_default}
-          ></Image>
-        </main>
-        <div className='flex flex-row place-content-center gap-2'>
-          {evolutions}
-        </div>
-      </figure>
-    </Link>
-  );
-  return <>{content}</>;
 }

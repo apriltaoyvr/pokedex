@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-  .current-evolution {
-    @apply rounded-md border  border-secondary-400/90 bg-secondary-200 p-6 text-center	text-secondary-800	shadow-md	transition-all	 hover:bg-secondary-200 hover:shadow-xl	 dark:border-secondary-600/90 dark:bg-secondary-700/50 dark:text-secondary-100 hover:dark:bg-secondary-700;
+  .card {
+    @apply rounded-md border  border-secondary-300/50 bg-secondary-200/25 p-6 text-center	text-secondary-800	shadow-md	transition-all	 hover:bg-secondary-200/50 hover:shadow-xl	 dark:border-secondary-700/50 dark:bg-secondary-700/10 dark:text-secondary-100 hover:dark:bg-secondary-700/50;
   }
 
-  .other-evolution {
-    @apply rounded-md border  border-secondary-300/50 bg-secondary-200/25 p-6 text-center	text-secondary-800	shadow-md	transition-all	 hover:bg-secondary-200/50 hover:shadow-xl	 dark:border-secondary-700/50 dark:bg-secondary-700/10 dark:text-secondary-100 hover:dark:bg-secondary-700/50;
+  .current-evolution {
+    @apply rounded-md border  border-secondary-400/90 bg-secondary-200 p-6 text-center	text-secondary-800	shadow-md	transition-all	 hover:bg-secondary-200 hover:shadow-xl	 dark:border-secondary-600/90 dark:bg-secondary-700/50 dark:text-secondary-100 hover:dark:bg-secondary-700;
   }
 }

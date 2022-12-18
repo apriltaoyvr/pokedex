@@ -1,6 +1,6 @@
 import PokemonPage from './page';
 import PokeAPI, { IEvolutionChain } from 'pokeapi-typescript';
-import { getPokemon, getPokemonSpecies } from '@/api'
+import { getPokemonBasic, getPokemonSpecies } from '@/api/pokedex'
 
 export default async function SubpageLayout({
   params,
@@ -11,9 +11,9 @@ export default async function SubpageLayout({
   speciesData = await getPokemonSpecies(params.pokemon);
 
   try {
-    basicData = await getPokemon(params.pokemon);
+    basicData = await getPokemonBasic(params.pokemon);
   } catch (error) {
-    basicData = await getPokemon(speciesData.varieties[0].pokemon.name);
+    basicData = await getPokemonBasic(speciesData.varieties[0].pokemon.name);
     hasForms = true;
   }
 
