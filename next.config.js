@@ -5,6 +5,7 @@ const nextConfig = {
   },
   images: {
     domains: ['raw.githubusercontent.com'],
+    unoptimized: true,
   },
   webpack(config) {
     config.experiments = { ...config.experiments, topLevelAwait: true };
@@ -12,4 +13,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;
