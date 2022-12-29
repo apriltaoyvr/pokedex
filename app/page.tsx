@@ -1,14 +1,21 @@
 'use client';
-import { Progress, Grid } from '@nextui-org/react';
+import { Grid } from '@nextui-org/react';
 import PokeCard from './components/PokeCard';
 import { useEffect, useState } from 'react';
+import { PokeDirectoryQuery } from '@/codegen/graphql';
 
 export default function Home() {
-  const [directory, setDirectory] = useState([]);
+  const [directory, setDirectory] = useState<
+    PokeDirectoryQuery['pokemon_v2_pokemon'] | never[]
+  >([]);
   useEffect(() => {
-    fetch('/api/graphql', { headers: { limit: 10 } }).then(
-      (response) =>
-        response.json().then((data) => setDirectory(data.pokemon_v2_pokemon))
+    //@ts-ignore
+    fetch('/api/graphql', { headers: { limit: 10 } }).then((response) =>
+      response
+        .json()
+        .then((data: PokeDirectoryQuery) =>
+          setDirectory(data.pokemon_v2_pokemon)
+        )
     );
   }, []);
 
