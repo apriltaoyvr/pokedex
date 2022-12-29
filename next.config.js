@@ -4,12 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['raw.githubusercontent.com'],
     unoptimized: true,
-  },
-  webpack(config) {
-    config.experiments = { ...config.experiments, topLevelAwait: true };
-    return config;
   },
 };
 

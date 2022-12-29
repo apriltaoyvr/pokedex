@@ -1,12 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# IDE
-.vscode/settings.json
-
 # dependencies
 /node_modules
+.yarn
 /.pnp
-.pnp.js
+.pnp.*
 
 # testing
 /coverage
@@ -17,11 +15,11 @@
 
 # production
 /build
-.turbo
 
 # misc
 .DS_Store
 *.pem
+.vscode
 
 # debug
 npm-debug.log*
