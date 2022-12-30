@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Card, Text, Image, Grid, Loading } from '@nextui-org/react';
 import { Pokemon_V2_Pokemon } from '@/codegen/graphql';
 
-const PokeCard = ({ pokemon, fallback = false }: { pokemon?: Pokemon_V2_Pokemon, fallback: boolean }) => {
+const PokeCard = ({ pokemon, fallback = false }: { pokemon?: Pokemon_V2_Pokemon, fallback?: boolean }) => {
   const router = useRouter();
   const [data, setData] = useState<Pokemon_V2_Pokemon | null>(
     //@ts-ignore

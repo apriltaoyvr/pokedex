@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     //@ts-ignore
-    fetch('/api/graphql', { headers: { limit: 10 } }).then((response) =>
+    fetch('/api/graphql', { headers: { limit: 150 } }).then((response) =>
       response
         .json()
         .then((data: PokeDirectoryQuery) =>
@@ -49,8 +49,9 @@ export default function Home() {
       />
       <Grid.Container gap={2} justify='center'>
         {directory
-          .filter((pokemon) => pokemon.name.includes(search.toLowerCase()))
-          .filter((pokemon) => pokemon.is_default === true)
+          .filter((pokemon) =>
+            pokemon.name.includes(search.toLowerCase())
+          )
           .map((pokemon) => (
             <Grid xs={12} md={3} key={pokemon.name}>
               <Suspense fallback={<PokeCard fallback={true} />}>

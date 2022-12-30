@@ -44,14 +44,25 @@ const GET_POKE_CARD = gql(/* GraphQL */ `
         id
         evolution_chain_id
         name
-        pokemon_v2_pokemonspeciesflavortexts(where: $where) {
-          flavor_text
-        }
         pokemon_v2_evolutionchain {
           pokemon_v2_pokemonspecies {
             id
             name
+            pokemon_v2_pokemons {
+              pokemon_v2_pokemontypes {
+                slot
+                pokemon_v2_type {
+                  name
+                }
+              }
+              pokemon_v2_pokemonsprites {
+                sprites
+              }
+            }
           }
+        }
+        pokemon_v2_pokemonspeciesflavortexts(where: $where) {
+          flavor_text
         }
       }
       pokemon_v2_pokemontypes {
