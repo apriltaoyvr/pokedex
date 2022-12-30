@@ -1,13 +1,20 @@
 'use client';
-import { Grid } from '@nextui-org/react';
+import {
+  Container,
+  FormElement,
+  Grid,
+  Input,
+} from '@nextui-org/react';
 import PokeCard from './components/PokeCard';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, Suspense, useEffect, useState } from 'react';
 import { PokeDirectoryQuery } from '@/codegen/graphql';
 
 export default function Home() {
   const [directory, setDirectory] = useState<
     PokeDirectoryQuery['pokemon_v2_pokemon'] | never[]
   >([]);
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     //@ts-ignore
     fetch('/api/graphql', { headers: { limit: 10 } }).then((response) =>
@@ -19,16 +26,42 @@ export default function Home() {
     );
   }, []);
 
+  function onChange(e: ChangeEvent<FormElement>) {
+    const value = e.target.value;
+    setSearch(value);
+  }
+
   return (
-    <Grid.Container gap={2} justify='center'>
-      {directory.map((pokemon) => (
-        <Grid xs={12} md={3} key={pokemon.name}>
-          <PokeCard
-            //@ts-ignore
-            pokemon={pokemon}
-          />
-        </Grid>
-      ))}
-    </Grid.Container>
+    <Container
+      fluid
+      display='flex'
+      justify='center'
+      alignItems='center'
+      alignContent='center'
+      as='section'
+    >
+      <Input
+        clearable
+        bordered
+        labelPlaceholder='Pokemon'
+        css={{ mt: 32, mb: 10 }}
+        onChange={onChange}
+      />
+      <Grid.Container gap={2} justify='center'>
+        {directory
+          .filter((pokemon) => pokemon.name.includes(search.toLowerCase()))
+          .filter((pokemon) => pokemon.is_default === true)
+          .map((pokemon) => (
+            <Grid xs={12} md={3} key={pokemon.name}>
+              <Suspense fallback={<PokeCard fallback={true} />}>
+                <PokeCard
+                  //@ts-ignore
+                  pokemon={pokemon}
+                />
+              </Suspense>
+            </Grid>
+          ))}
+      </Grid.Container>
+    </Container>
   );
 }

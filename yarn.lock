@@ -15,7 +15,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:^3.7.3":
+"@apollo/client@npm:^3.7.2":
   version: 3.7.3
   resolution: "@apollo/client@npm:3.7.3"
   dependencies:
@@ -6096,14 +6096,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-themes@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "next-themes@npm:0.2.1"
+"next-themes@npm:^1.0.0-beta.0":
+  version: 1.0.0-beta.0
+  resolution: "next-themes@npm:1.0.0-beta.0"
   peerDependencies:
     next: "*"
     react: "*"
     react-dom: "*"
-  checksum: ebc248b956138e73436c4ed0a0f0a877a0a48a33156db577029b8b8469e48b5c777d61abf2baeb75953378febea74e067a4869ff90b4a3e94fce123289b862ba
+  checksum: 5c13773f8a5cf9fc11d5dd1ac3f1686eee659180f00088208ad55f4e3de8fe6568e0036371145743d1ed605142242f9a1ef85011c1bba5ac03606b72be2c20f8
   languageName: node
   linkType: hard
 
@@ -6622,7 +6622,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pokedex@workspace:."
   dependencies:
-    "@apollo/client": ^3.7.3
+    "@apollo/client": ^3.7.2
     "@graphql-codegen/cli": ^2.16.2
     "@graphql-codegen/client-preset": ^1.2.4
     "@graphql-typed-document-node/core": ^3.1.1
@@ -6637,10 +6637,11 @@ __metadata:
     eslint-config-next: 13.1.1
     graphql: ^16.6.0
     next: 13.1.1
-    next-themes: ^0.2.1
+    next-themes: ^1.0.0-beta.0
     react: 18.2.0
     react-dom: 18.2.0
     ts-node: ^10.9.1
+    turbo: ^1.6.3
     typescript: ^4.9.4
   languageName: unknown
   linkType: soft
@@ -7573,6 +7574,77 @@ __metadata:
   peerDependencies:
     typescript: ">=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta"
   checksum: 1843f4c1b2e0f975e08c4c21caa4af4f7f65a12ac1b81b3b8489366826259323feb3fc7a243123453d2d1a02314205a7634e048d4a8009921da19f99755cdc48
+  languageName: node
+  linkType: hard
+
+"turbo-darwin-64@npm:1.6.3":
+  version: 1.6.3
+  resolution: "turbo-darwin-64@npm:1.6.3"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"turbo-darwin-arm64@npm:1.6.3":
+  version: 1.6.3
+  resolution: "turbo-darwin-arm64@npm:1.6.3"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"turbo-linux-64@npm:1.6.3":
+  version: 1.6.3
+  resolution: "turbo-linux-64@npm:1.6.3"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"turbo-linux-arm64@npm:1.6.3":
+  version: 1.6.3
+  resolution: "turbo-linux-arm64@npm:1.6.3"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"turbo-windows-64@npm:1.6.3":
+  version: 1.6.3
+  resolution: "turbo-windows-64@npm:1.6.3"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"turbo-windows-arm64@npm:1.6.3":
+  version: 1.6.3
+  resolution: "turbo-windows-arm64@npm:1.6.3"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"turbo@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "turbo@npm:1.6.3"
+  dependencies:
+    turbo-darwin-64: 1.6.3
+    turbo-darwin-arm64: 1.6.3
+    turbo-linux-64: 1.6.3
+    turbo-linux-arm64: 1.6.3
+    turbo-windows-64: 1.6.3
+    turbo-windows-arm64: 1.6.3
+  dependenciesMeta:
+    turbo-darwin-64:
+      optional: true
+    turbo-darwin-arm64:
+      optional: true
+    turbo-linux-64:
+      optional: true
+    turbo-linux-arm64:
+      optional: true
+    turbo-windows-64:
+      optional: true
+    turbo-windows-arm64:
+      optional: true
+  bin:
+    turbo: bin/turbo
+  checksum: 35195f4b7623014c25ba152c11a8cb23e51cbd75dc9266d0656692665f85b28faf3496dea8cecacf52795a917410668124186ffbdcf276325ccc3e11df9e9623
   languageName: node
   linkType: hard
 
