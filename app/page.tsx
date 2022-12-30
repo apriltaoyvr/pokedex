@@ -1,10 +1,5 @@
 'use client';
-import {
-  Container,
-  FormElement,
-  Grid,
-  Input,
-} from '@nextui-org/react';
+import { Container, FormElement, Grid, Input } from '@nextui-org/react';
 import PokeCard from './components/PokeCard';
 import { ChangeEvent, Suspense, useEffect, useState } from 'react';
 import { PokeDirectoryQuery } from '@/codegen/graphql';
@@ -49,9 +44,7 @@ export default function Home() {
       />
       <Grid.Container gap={2} justify='center'>
         {directory
-          .filter((pokemon) =>
-            pokemon.name.includes(search.toLowerCase())
-          )
+          .filter((pokemon) => pokemon.name.includes(search.toLowerCase()))
           .map((pokemon) => (
             <Grid xs={12} md={3} key={pokemon.name}>
               <Suspense fallback={<PokeCard fallback={true} />}>

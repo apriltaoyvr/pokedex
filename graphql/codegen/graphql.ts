@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -103442,3 +103443,18 @@ export type Pokemon_V2_Versionname_Variance_Order_By = {
   language_id?: InputMaybe<Order_By>;
   version_id?: InputMaybe<Order_By>;
 };
+
+export type PokeDirectoryQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type PokeDirectoryQuery = { __typename?: 'Query', pokemon_v2_pokemon: Array<{ __typename?: 'pokemon_v2_pokemon', id: number, name: string }> };
+
+export type PokeCardQueryVariables = Exact<{
+  pokemonV2PokemonByPkId: Scalars['Int'];
+  where?: InputMaybe<Pokemon_V2_Pokemonspeciesflavortext_Bool_Exp>;
+}>;
+
+
+export type PokeCardQuery = { __typename?: 'Query', pokemon_v2_pokemon_by_pk?: { __typename?: 'pokemon_v2_pokemon', id: number, name: string, is_default: boolean, pokemon_v2_pokemonspecy?: { __typename?: 'pokemon_v2_pokemonspecies', id: number, evolution_chain_id?: number | null, name: string, pokemon_v2_evolutionchain?: { __typename?: 'pokemon_v2_evolutionchain', pokemon_v2_pokemonspecies: Array<{ __typename?: 'pokemon_v2_pokemonspecies', id: number, name: string, pokemon_v2_pokemons: Array<{ __typename?: 'pokemon_v2_pokemon', pokemon_v2_pokemontypes: Array<{ __typename?: 'pokemon_v2_pokemontype', slot: number, pokemon_v2_type?: { __typename?: 'pokemon_v2_type', name: string } | null }>, pokemon_v2_pokemonsprites: Array<{ __typename?: 'pokemon_v2_pokemonsprites', sprites: string }> }> }> } | null, pokemon_v2_pokemonspeciesflavortexts: Array<{ __typename?: 'pokemon_v2_pokemonspeciesflavortext', flavor_text: string }> } | null, pokemon_v2_pokemontypes: Array<{ __typename?: 'pokemon_v2_pokemontype', slot: number, pokemon_v2_type?: { __typename?: 'pokemon_v2_type', name: string } | null }>, pokemon_v2_pokemonsprites: Array<{ __typename?: 'pokemon_v2_pokemonsprites', sprites: string }> } | null };
